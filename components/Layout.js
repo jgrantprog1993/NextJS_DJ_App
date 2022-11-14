@@ -3,7 +3,8 @@ import {useRouter} from 'next/router'
 import styles from "@/styles/Layout.module.css"
 import Header from "./Header"
 import Footer from "./Footer"
-import Showcase from "./Showcase"
+import Showcase from '@/components/Showcase'
+
 
 export default function Layout({title, keywords, description, children}) {
   
@@ -19,7 +20,7 @@ export default function Layout({title, keywords, description, children}) {
         
         <Header />
         
-        {router.pathname === '/ ' && <Showcase/>} 
+        {router.pathname === '/' && <Showcase/>} 
             <div className={styles.container}>
                 {children}
             </div>
