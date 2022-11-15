@@ -7,7 +7,7 @@ import Image from 'next/image'
 import {FaPencilAlt, FaTimes} from 'react-icons/fa'
 
 export default function EventPage({evt}) {
-    //const router = useRouter()
+    const router = useRouter()
     //console.log(evt)
     const deleteEvent = (e)=> {
       console.log("Delete Event")
@@ -26,7 +26,7 @@ export default function EventPage({evt}) {
           </a>
         </div>
         <span>
-          {evt.attributes.date} at {evt.attributes.time}
+          {new Date(evt.attributes.date).toLocaleDateString('en-US')} at {evt.attributes.time}
         </span>
         <h1>{evt.attributes.name}</h1>
         {evt.attributes.image && (
@@ -81,10 +81,11 @@ export default function EventPage({evt}) {
 //     revalidate: 1
 //   }
 // }
-export async function getServerSideProps({params: {slug}}){
-
-  const res = await fetch(`${API_URL}/api/events?slug=${slug}&populate=*`)
+export async function getServerSideProps({query: {slug}}){
+  console.log(slug)
+  const res = await fetch(`${API_URL}/api/events?filters[slug][0]=${slug}&populate=*`) //update from Stapri V3 -> V4
   const events = await res.json()
+  console.log(events)
   const eventsdata = events.data
   console.log(eventsdata)
 
